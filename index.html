@@ -1,0 +1,1526 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kippen Klikker</title>
+    <style>
+      :root {
+        --bg-1: #f7f1e7;
+        --bg-2: #ffe8cc;
+        --ink: #2b2b2b;
+        --accent: #d96c06;
+        --accent-2: #3b7d4a;
+        --panel: #fff7ed;
+        --panel-border: #f0d9b5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(circle at top, var(--bg-2), var(--bg-1));
+        min-height: 100vh;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.2fr);
+        gap: 20px;
+        padding: 20px;
+      }
+
+      header {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #fffaf2, #ffe8c7);
+        border: 2px solid var(--panel-border);
+        border-radius: 16px;
+        gap: 12px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 40px;
+        letter-spacing: 1px;
+        font-family: "Pricedown", "Impact", "Arial Black", "Trebuchet MS", sans-serif;
+        text-transform: uppercase;
+        text-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      .header-logo {
+        width: 100%;
+        height: 160px;
+        object-fit: contain;
+        justify-self: center;
+        filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.25));
+      }
+
+      .stats {
+        display: grid;
+        gap: 8px;
+        text-align: right;
+        font-size: 16px;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 2px solid var(--panel-border);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .farms {
+        display: grid;
+        gap: 12px;
+      }
+
+      .farm-yard {
+        position: relative;
+        height: 160px;
+        border-radius: 14px;
+        border: 2px solid var(--panel-border);
+        background: linear-gradient(180deg, #dff2c9 0%, #c7e6a5 100%);
+        overflow: hidden;
+      }
+
+      .farm-yard::after {
+        content: "";
+        position: absolute;
+        bottom: 14px;
+        left: 8%;
+        width: 84%;
+        height: 10px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.15) 0 18px,
+          rgba(0, 0, 0, 0) 18px 32px
+        );
+        border-radius: 999px;
+      }
+
+      .farm-grid {
+        position: absolute;
+        inset: 12px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+        gap: 10px;
+        align-content: start;
+      }
+
+      .farm {
+        position: relative;
+        width: 58px;
+        height: 46px;
+        background: #f2e5c9;
+        border: 2px solid #c8a874;
+        border-radius: 6px;
+        box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08);
+      }
+
+      .farm::before {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        top: -12px;
+        height: 18px;
+        background: #b05b3b;
+        border: 2px solid #8e452b;
+        border-bottom: none;
+        clip-path: polygon(0 100%, 50% 0, 100% 100%);
+        border-radius: 6px 6px 0 0;
+      }
+
+      .farm::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 16px;
+        background: #b07a44;
+        bottom: 6px;
+        left: 8px;
+        border: 2px solid #8a5a2e;
+        border-radius: 2px;
+      }
+
+      .clicker {
+        display: grid;
+        gap: 14px;
+      }
+
+      .clicker button {
+        appearance: none;
+        border: none;
+        background: var(--accent);
+        color: white;
+        padding: 14px 18px;
+        border-radius: 12px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: transform 0.08s ease, box-shadow 0.08s ease;
+        box-shadow: 0 6px 0 #b65700;
+      }
+
+      #click-btn .rainbow-text {
+        display: inline-block;
+        color: transparent;
+        background: linear-gradient(
+          120deg,
+          #ff2a2a,
+          #ff8a00,
+          #ffe400,
+          #3cff57,
+          #3cc7ff,
+          #7a5cff,
+          #ff2ad4,
+          #ff2a2a
+        );
+        background-size: 400% 400%;
+        animation: rainbow-cycle 6s linear infinite;
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+
+      .clicker button:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 #b65700;
+      }
+
+      @keyframes rainbow-cycle {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .clicker .subtext {
+        font-size: 14px;
+        color: #5a534a;
+      }
+
+      .field {
+        position: relative;
+        height: 360px;
+        overflow: hidden;
+        border-radius: 16px;
+        border: 2px solid var(--panel-border);
+        background: linear-gradient(180deg, #cfe9ff 0%, #cfe9ff 45%, #c8f7c5 45%, #b4e7a8 100%);
+      }
+
+      .field::after {
+        content: "";
+        position: absolute;
+        left: 10%;
+        bottom: 20px;
+        width: 80%;
+        height: 6px;
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.15) 0 18px,
+          rgba(0, 0, 0, 0) 18px 32px
+        );
+        border-radius: 999px;
+      }
+
+      .chicken {
+        position: absolute;
+        bottom: 24px;
+        left: -80px;
+        width: 70px;
+        height: 50px;
+        animation: run 3.5s linear forwards;
+        display: grid;
+        grid-template-columns: 1fr 26px;
+        align-items: center;
+      }
+
+      .meth-chicken {
+        filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+        animation-timing-function: linear;
+        animation-name: meth-run;
+        animation-duration: var(--meth-duration, 1.5s);
+      }
+
+      .meth-chicken .body {
+        animation: hue-spin 0.9s linear infinite;
+        background: linear-gradient(135deg, #9cff57, #57d7ff);
+      }
+
+      @keyframes meth-run {
+        0% {
+          transform: translateX(0);
+        }
+        45% {
+          transform: translateX(var(--target-x, 140px));
+        }
+        75% {
+          transform: translateX(var(--target-x, 140px));
+        }
+        100% {
+          transform: translateX(calc(100vw + 200px));
+        }
+      }
+
+      @keyframes hue-spin {
+        0% {
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          filter: hue-rotate(360deg);
+        }
+      }
+
+      .chicken .body {
+        width: 46px;
+        height: 34px;
+        border-radius: 20px;
+        background: #fff;
+        border: 2px solid #e4d9c7;
+        position: relative;
+      }
+
+      .chicken .body::before {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: #ff5b5b;
+        border-radius: 50%;
+        left: 5px;
+        top: -6px;
+      }
+
+      .chicken .body::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #2b2b2b;
+        border-radius: 50%;
+        right: 6px;
+        top: 9px;
+      }
+
+      .chicken .beak {
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 16px solid #f4a100;
+      }
+
+      @keyframes run {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(100vw + 200px));
+        }
+      }
+
+      .wolf {
+        position: absolute;
+        left: 0;
+        bottom: 26px;
+        width: 190px;
+        height: 110px;
+        display: block;
+        will-change: left;
+        --dir: 1;
+      }
+
+      .wolf .wolf-sprite {
+        position: absolute;
+        inset: 0;
+        transform-origin: 70% 70%;
+        transform: scaleX(var(--dir));
+      }
+
+      .wolf .ui {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .wolf[data-dir="right"] .ui {
+        transform: scaleX(-1);
+      }
+
+      .wolf[data-dir="left"] .ui {
+        transform: scaleX(1);
+      }
+
+      .wolf .body {
+        position: absolute;
+        left: 44px;
+        bottom: 26px;
+        width: 110px;
+        height: 52px;
+        background: linear-gradient(145deg, #6d6d6d, #4b4b4b);
+        border: 3px solid #2f2f2f;
+        border-radius: 18px 24px 20px 20px;
+        box-shadow: inset -10px -6px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .wolf .shoulder {
+        position: absolute;
+        left: 34px;
+        bottom: 32px;
+        width: 28px;
+        height: 34px;
+        background: #3f3f3f;
+        border-radius: 10px;
+        border: 2px solid #2b2b2b;
+      }
+
+      .wolf .head {
+        position: absolute;
+        left: 0;
+        bottom: 42px;
+        width: 70px;
+        height: 34px;
+        background: #4a4a4a;
+        border: 3px solid #2f2f2f;
+        border-radius: 8px 12px 10px 8px;
+      }
+
+      .wolf .snout {
+        position: absolute;
+        left: -10px;
+        bottom: 46px;
+        width: 34px;
+        height: 18px;
+        background: #2d2d2d;
+        border: 2px solid #1f1f1f;
+        border-radius: 6px;
+      }
+
+      .wolf .ear {
+        position: absolute;
+        width: 16px;
+        height: 20px;
+        background: #2f2f2f;
+        top: 18px;
+        left: 16px;
+        transform: rotate(-10deg);
+        border-radius: 4px 4px 10px 10px;
+      }
+
+      .wolf .ear.right {
+        left: 36px;
+        transform: rotate(18deg);
+      }
+
+      .wolf .eye {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #f5e8d0;
+        border-radius: 50%;
+        left: 40px;
+        bottom: 58px;
+      }
+
+      .wolf .fang {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 10px solid #f2f2f2;
+        left: 4px;
+        bottom: 42px;
+      }
+
+      .wolf .tail {
+        position: absolute;
+        width: 46px;
+        height: 16px;
+        background: #4a4a4a;
+        left: 150px;
+        bottom: 52px;
+        border-radius: 10px;
+        transform: rotate(12deg);
+        border: 2px solid #2f2f2f;
+      }
+
+      .wolf .leg {
+        position: absolute;
+        width: 14px;
+        height: 30px;
+        background: #2f2f2f;
+        bottom: 6px;
+        border-radius: 4px;
+      }
+
+      .wolf .leg.front {
+        left: 58px;
+      }
+
+      .wolf .leg.front.back {
+        left: 78px;
+        height: 26px;
+        background: #3a3a3a;
+      }
+
+      .wolf .leg.rear {
+        left: 120px;
+        height: 28px;
+      }
+
+      .wolf .leg.rear.back {
+        left: 138px;
+        height: 24px;
+        background: #3a3a3a;
+      }
+      }
+
+      .wolf .label {
+        position: absolute;
+        top: -26px;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #3c3c3c;
+        color: #fff;
+      }
+
+      .wolf .health {
+        position: absolute;
+        bottom: -14px;
+        width: 110px;
+        height: 8px;
+        background: #f1d1d1;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .wolf .health span {
+        display: block;
+        height: 100%;
+        background: #e04b4b;
+        width: 100%;
+      }
+
+      .wolf.attack .wolf-sprite {
+        animation: lunge 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      @keyframes lunge {
+        0% {
+          transform: translateX(0) scale(1) scaleX(var(--dir));
+        }
+        35% {
+          transform: translateX(-26px) scale(1.05) rotate(-1deg) scaleX(var(--dir));
+        }
+        70% {
+          transform: translateX(-40px) scale(1.02) scaleX(var(--dir));
+        }
+        100% {
+          transform: translateX(0) scale(1) scaleX(var(--dir));
+        }
+      }
+
+      .dust {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(197, 175, 139, 0.9), rgba(197, 175, 139, 0));
+        pointer-events: none;
+        animation: puff 0.6s ease-out forwards;
+      }
+
+      @keyframes puff {
+        0% {
+          transform: scale(0.5);
+          opacity: 0.9;
+        }
+        100% {
+          transform: scale(2.2) translateY(-6px);
+          opacity: 0;
+        }
+      }
+
+      .pig {
+        position: absolute;
+        left: 0;
+        bottom: 110px;
+        width: 170px;
+        height: 90px;
+        display: block;
+        --dir: 1;
+      }
+
+      .pig .pig-sprite {
+        position: absolute;
+        inset: 0;
+        transform-origin: 40% 70%;
+        transform: scaleX(var(--dir));
+      }
+
+      .pig .ui {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .pig[data-dir="right"] .ui {
+        transform: scaleX(-1);
+      }
+
+      .pig[data-dir="left"] .ui {
+        transform: scaleX(1);
+      }
+
+      .pig .body {
+        position: absolute;
+        left: 38px;
+        bottom: 22px;
+        width: 120px;
+        height: 52px;
+        background: linear-gradient(160deg, #f4b7b7, #e38f8f);
+        border: 3px solid #c97070;
+        border-radius: 28px;
+        box-shadow: inset -10px -6px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .pig .head {
+        position: absolute;
+        left: 4px;
+        bottom: 34px;
+        width: 56px;
+        height: 40px;
+        background: #eaa2a2;
+        border: 3px solid #c97070;
+        border-radius: 18px;
+      }
+
+      .pig .snout {
+        position: absolute;
+        left: 10px;
+        bottom: 42px;
+        width: 26px;
+        height: 18px;
+        background: #d77b7b;
+        border: 2px solid #b86262;
+        border-radius: 10px;
+      }
+
+      .pig .snout::before,
+      .pig .snout::after {
+        content: "";
+        position: absolute;
+        top: 6px;
+        width: 4px;
+        height: 6px;
+        background: #8f4a4a;
+        border-radius: 2px;
+      }
+
+      .pig .snout::before {
+        left: 6px;
+      }
+
+      .pig .snout::after {
+        right: 6px;
+      }
+
+      .pig .ear {
+        position: absolute;
+        width: 14px;
+        height: 18px;
+        background: #e18f8f;
+        top: 20px;
+        left: 16px;
+        border-radius: 4px 4px 8px 8px;
+        transform: rotate(-10deg);
+        border: 2px solid #c97070;
+      }
+
+      .pig .ear.right {
+        left: 34px;
+        transform: rotate(12deg);
+      }
+
+      .pig .eye {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: #3a2a2a;
+        border-radius: 50%;
+        left: 42px;
+        bottom: 58px;
+      }
+
+      .pig .leg {
+        position: absolute;
+        width: 12px;
+        height: 22px;
+        background: #c97070;
+        bottom: 8px;
+        border-radius: 4px;
+      }
+
+      .pig .leg.front {
+        left: 60px;
+      }
+
+      .pig .leg.front.back {
+        left: 78px;
+        height: 20px;
+        background: #b86262;
+      }
+
+      .pig .leg.rear {
+        left: 118px;
+        height: 20px;
+      }
+
+      .pig .leg.rear.back {
+        left: 134px;
+        height: 18px;
+        background: #b86262;
+      }
+
+      .pig .label {
+        position: absolute;
+        top: -26px;
+        right: 6px;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #8f4a4a;
+        color: #fff;
+      }
+
+      .pig .health {
+        position: absolute;
+        bottom: -14px;
+        width: 110px;
+        height: 8px;
+        right: 6px;
+        background: #f1d1d1;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .pig .health span {
+        display: block;
+        height: 100%;
+        background: #c04848;
+        width: 100%;
+      }
+
+      .pig.attack .pig-sprite {
+        animation: pig-lunge 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      @keyframes pig-lunge {
+        0% {
+          transform: translateX(0) scale(1) scaleX(var(--dir));
+        }
+        50% {
+          transform: translateX(-34px) scale(1.04) rotate(1deg) scaleX(var(--dir));
+        }
+        100% {
+          transform: translateX(0) scale(1) scaleX(var(--dir));
+        }
+      }
+
+      .turret {
+        position: absolute;
+        bottom: 30px;
+        width: 44px;
+        height: 40px;
+        border-radius: 10px;
+        background: #7a5b2e;
+        border: 2px solid #5c431f;
+        display: grid;
+        place-items: center;
+      }
+
+      .turret::before {
+        content: "";
+        width: 24px;
+        height: 8px;
+        background: #3b2a12;
+        border-radius: 999px;
+      }
+
+      .bullet {
+        position: absolute;
+        width: 10px;
+        height: 4px;
+        background: #2b2b2b;
+        border-radius: 4px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+        animation: bullet-fly 0.35s linear forwards;
+      }
+
+      @keyframes bullet-fly {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(180px);
+          opacity: 0;
+        }
+      }
+
+      .upgrades {
+        display: grid;
+        gap: 12px;
+      }
+
+      .upgrade {
+        display: grid;
+        gap: 6px;
+        padding: 12px;
+        border-radius: 12px;
+        border: 2px solid #f1d9b0;
+        background: #fffdf8;
+      }
+
+      .upgrade button {
+        appearance: none;
+        border: 2px solid transparent;
+        background: transparent;
+        color: var(--accent-2);
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease;
+        background-image: linear-gradient(#fffdf8, #fffdf8),
+          linear-gradient(90deg, #ff004c, #ff9f0a, #ffd60a, #32d74b, #0a84ff, #5e5ce6, #ff2d55);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        animation: rainbow-border 3.2s linear infinite;
+      }
+
+      .upgrade button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .upgrade button:not(:disabled):hover {
+        background: var(--accent-2);
+        color: white;
+      }
+
+      @keyframes rainbow-border {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+
+      .hint {
+        font-size: 13px;
+        color: #6b6358;
+      }
+
+      .danger {
+        color: #b52b2b;
+        font-weight: 600;
+      }
+
+      .enemy-status {
+        display: grid;
+        gap: 6px;
+        font-size: 13px;
+        color: #5c5348;
+        margin-top: 6px;
+      }
+
+      @media (max-width: 880px) {
+        .page {
+          grid-template-columns: 1fr;
+        }
+        header {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+        }
+        .stats {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Kippen Klikker</h1>
+        <img class="header-logo" src="fish.png" alt="Kippen Klikker logo" />
+        <div class="stats">
+          <div><strong>📦 Kippen</strong>: <span id="chicken-count">0</span></div>
+          <div><strong>💰 Kippencoins</strong>: <span id="coins">0</span></div>
+          <div><strong>⏱️ Inkomen/sec</strong>: <span id="income">0</span></div>
+          <div><strong>🌾 Farms</strong>: <span id="farm-count">0</span></div>
+        </div>
+      </header>
+
+      <section class="panel clicker">
+        <button id="click-btn"><span class="rainbow-text">Klik voor een kip!</span></button>
+        <div class="subtext">
+          Elke klik laat een kip over het veld rennen en verdient kippencoins.
+        </div>
+        <div class="hint">
+          Tip: elke kip verhoogt je inkomsten per seconde. Upgrades maken dat nóg sterker.
+        </div>
+        <div class="hint danger">
+          Pas op: de dikke wolf valt je kippen aan! Koop turrets om hem af te schrikken.
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="field" id="field">
+          <div class="wolf" id="wolf">
+            <div class="wolf-sprite">
+              <div class="body"></div>
+              <div class="shoulder"></div>
+              <div class="head"></div>
+              <div class="snout"></div>
+              <div class="ear"></div>
+              <div class="ear right"></div>
+              <div class="eye"></div>
+              <div class="fang"></div>
+              <div class="tail"></div>
+              <div class="leg front"></div>
+              <div class="leg front back"></div>
+              <div class="leg rear"></div>
+              <div class="leg rear back"></div>
+              <div class="ui">
+                <div class="label">Dikke Wolf</div>
+                <div class="health"><span id="wolf-health"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="pig" id="pig">
+            <div class="pig-sprite">
+              <div class="body"></div>
+              <div class="head"></div>
+              <div class="snout"></div>
+              <div class="ear"></div>
+              <div class="ear right"></div>
+              <div class="eye"></div>
+              <div class="leg front"></div>
+              <div class="leg front back"></div>
+              <div class="leg rear"></div>
+              <div class="leg rear back"></div>
+              <div class="ui">
+                <div class="label">Kapot Dik Varken</div>
+                <div class="health"><span id="pig-health"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="enemy-status">
+          <div>🐺 Wolf cooldown: <span id="wolf-cooldown">0s</span></div>
+          <div>🐷 Varken cooldown: <span id="pig-cooldown">0s</span></div>
+        </div>
+      </section>
+
+      <section class="panel upgrades">
+        <div class="upgrade">
+          <strong>Voerautomaat</strong>
+          <div class="hint">+1 passief inkomen per seconde.</div>
+          <button id="upgrade-passive">Koop (Kosten: <span id="cost-passive">25</span>)</button>
+        </div>
+        <div class="upgrade">
+          <strong>Gouden Graankorrels</strong>
+          <div class="hint">+1 inkomen per kip per seconde.</div>
+          <button id="upgrade-per-chicken">Koop (Kosten: <span id="cost-per-chicken">40</span>)</button>
+        </div>
+        <div class="upgrade">
+          <strong>Super Snavel</strong>
+          <div class="hint">+1 coin per klik.</div>
+          <button id="upgrade-click">Koop (Kosten: <span id="cost-click">30</span>)</button>
+        </div>
+        <div class="upgrade">
+          <strong>Turret</strong>
+          <div class="hint">Schiet automatisch op de dikke wolf.</div>
+          <button id="buy-turret">Koop (Kosten: <span id="cost-turret">60</span>)</button>
+        </div>
+        <div class="upgrade">
+          <strong>Crystal Meth Kippen</strong>
+          <div class="hint">Supersnelle kippen die van kleur veranderen en vijanden aanvallen.</div>
+          <button id="buy-meth">Koop (Kosten: <span id="cost-meth">150</span>)</button>
+        </div>
+      </section>
+
+      <section class="panel farms">
+        <div class="upgrade">
+          <strong>Kippenfarm</strong>
+          <div class="hint">Elke farm geeft 10 kippen per minuut.</div>
+          <button id="buy-farm">Koop (Kosten: <span id="cost-farm">120</span>)</button>
+        </div>
+        <div class="farm-yard">
+          <div class="farm-grid" id="farm-grid"></div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const coinsEl = document.getElementById("coins");
+      const chickensEl = document.getElementById("chicken-count");
+      const incomeEl = document.getElementById("income");
+      const farmsEl = document.getElementById("farm-count");
+      const fieldEl = document.getElementById("field");
+      const wolfEl = document.getElementById("wolf");
+      const wolfHealthEl = document.getElementById("wolf-health");
+      const pigEl = document.getElementById("pig");
+      const pigHealthEl = document.getElementById("pig-health");
+      const wolfCooldownEl = document.getElementById("wolf-cooldown");
+      const pigCooldownEl = document.getElementById("pig-cooldown");
+      const farmGridEl = document.getElementById("farm-grid");
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      let audioUnlocked = false;
+
+      const state = {
+        coins: 0,
+        chickens: 0,
+        clickIncome: 1,
+        passiveBase: 0,
+        perChicken: 0.1,
+        turrets: 0,
+        wolfHealth: 120,
+        wolfMaxHealth: 120,
+        wolfCooldown: 0,
+        chickenNodes: [],
+        wolfX: 0,
+        wolfDirection: -1,
+        wolfTargetX: null,
+        pigHealth: 180,
+        pigMaxHealth: 180,
+        pigCooldown: 0,
+        pigX: 0,
+        pigDirection: 1,
+        pigTargetX: null,
+        methChickens: 0,
+        methChickenNodes: [],
+        farms: 0,
+        farmChickenBuffer: 0,
+      };
+
+      const upgrades = {
+        passive: { cost: 25, increment: 1, costMult: 1.35 },
+        perChicken: { cost: 40, increment: 1, costMult: 1.4 },
+        click: { cost: 30, increment: 1, costMult: 1.3 },
+        turret: { cost: 60, increment: 1, costMult: 1.5 },
+        farm: { cost: 120, increment: 1, costMult: 1.45 },
+        meth: { cost: 150, increment: 1, costMult: 1.5 },
+      };
+
+      const costEls = {
+        passive: document.getElementById("cost-passive"),
+        perChicken: document.getElementById("cost-per-chicken"),
+        click: document.getElementById("cost-click"),
+        turret: document.getElementById("cost-turret"),
+        farm: document.getElementById("cost-farm"),
+        meth: document.getElementById("cost-meth"),
+      };
+
+      function formatNumber(num) {
+        return Math.floor(num).toLocaleString("nl-NL");
+      }
+
+      function updateUI() {
+        coinsEl.textContent = formatNumber(state.coins);
+        chickensEl.textContent = formatNumber(state.chickens);
+        incomeEl.textContent = formatNumber(getIncomePerSecond());
+        farmsEl.textContent = formatNumber(state.farms);
+        costEls.passive.textContent = formatNumber(upgrades.passive.cost);
+        costEls.perChicken.textContent = formatNumber(upgrades.perChicken.cost);
+        costEls.click.textContent = formatNumber(upgrades.click.cost);
+        costEls.turret.textContent = formatNumber(upgrades.turret.cost);
+        costEls.farm.textContent = formatNumber(upgrades.farm.cost);
+        costEls.meth.textContent = formatNumber(upgrades.meth.cost);
+        updateWolfUI();
+        updatePigUI();
+        updateButtons();
+      }
+
+      function updateButtons() {
+        document.getElementById("upgrade-passive").disabled =
+          state.coins < upgrades.passive.cost;
+        document.getElementById("upgrade-per-chicken").disabled =
+          state.coins < upgrades.perChicken.cost;
+        document.getElementById("upgrade-click").disabled =
+          state.coins < upgrades.click.cost;
+        document.getElementById("buy-turret").disabled =
+          state.coins < upgrades.turret.cost;
+        document.getElementById("buy-farm").disabled =
+          state.coins < upgrades.farm.cost;
+        document.getElementById("buy-meth").disabled =
+          state.coins < upgrades.meth.cost;
+      }
+
+      function spawnChicken() {
+        const chicken = document.createElement("div");
+        chicken.className = "chicken";
+        chicken.style.bottom = `${24 + Math.random() * 80}px`;
+        chicken.style.animationDuration = `${2.6 + Math.random() * 1.8}s`;
+        chicken.innerHTML = `
+          <div class="body"></div>
+          <div class="beak"></div>
+        `;
+        chicken.addEventListener("animationend", () => {
+          const index = state.chickenNodes.indexOf(chicken);
+          if (index >= 0) state.chickenNodes.splice(index, 1);
+          chicken.remove();
+        });
+        fieldEl.appendChild(chicken);
+        state.chickenNodes.push(chicken);
+      }
+
+      function spawnMethChicken(targetX) {
+        const chicken = document.createElement("div");
+        chicken.className = "chicken meth-chicken";
+        chicken.style.bottom = `${24 + Math.random() * 100}px`;
+        chicken.style.animationDuration = `${1.2 + Math.random() * 0.5}s`;
+        if (typeof targetX === "number") {
+          chicken.style.setProperty("--target-x", `${targetX}px`);
+        }
+        chicken.innerHTML = `
+          <div class="body"></div>
+          <div class="beak"></div>
+        `;
+        chicken.addEventListener("animationend", () => {
+          const index = state.methChickenNodes.indexOf(chicken);
+          if (index >= 0) state.methChickenNodes.splice(index, 1);
+          chicken.remove();
+        });
+        fieldEl.appendChild(chicken);
+        state.methChickenNodes.push(chicken);
+      }
+
+      function spawnTurret() {
+        const turret = document.createElement("div");
+        turret.className = "turret";
+        const spacing = 20 + (state.turrets - 1) * 54;
+        turret.style.left = `${Math.min(spacing, 260)}px`;
+        turret.style.bottom = `${30 + (state.turrets % 2) * 12}px`;
+        fieldEl.appendChild(turret);
+      }
+
+      function getIncomePerSecond() {
+        return state.passiveBase + state.chickens * state.perChicken;
+      }
+
+      function getFarmChickensPerSecond() {
+        return state.farms * (10 / 60);
+      }
+
+      function spawnFarm() {
+        const farm = document.createElement("div");
+        farm.className = "farm";
+        farmGridEl.appendChild(farm);
+      }
+
+      function updateWolfUI() {
+        const ratio = Math.max(state.wolfHealth, 0) / state.wolfMaxHealth;
+        wolfHealthEl.style.width = `${ratio * 100}%`;
+        wolfEl.style.left = `${state.wolfX}px`;
+        wolfEl.style.display = state.wolfCooldown > 0 ? "none" : "block";
+        wolfCooldownEl.textContent =
+          state.wolfCooldown > 0 ? `${Math.ceil(state.wolfCooldown)}s` : "0s";
+      }
+
+      function updatePigUI() {
+        const ratio = Math.max(state.pigHealth, 0) / state.pigMaxHealth;
+        pigHealthEl.style.width = `${ratio * 100}%`;
+        pigEl.style.left = `${state.pigX}px`;
+        pigEl.style.display = state.pigCooldown > 0 ? "none" : "block";
+        pigCooldownEl.textContent =
+          state.pigCooldown > 0 ? `${Math.ceil(state.pigCooldown)}s` : "0s";
+      }
+
+      function damageWolf(amount) {
+        if (state.wolfCooldown > 0) return;
+        state.wolfHealth -= amount;
+        if (state.wolfHealth <= 0) {
+          state.coins += 30;
+          state.wolfMaxHealth = Math.floor(state.wolfMaxHealth * 1.25 + 20);
+          state.wolfHealth = state.wolfMaxHealth;
+          state.wolfCooldown = 120;
+        }
+      }
+
+      function damagePig(amount) {
+        if (state.pigCooldown > 0) return;
+        state.pigHealth -= amount;
+        if (state.pigHealth <= 0) {
+          state.coins += 40;
+          state.pigMaxHealth = Math.floor(state.pigMaxHealth * 1.3 + 30);
+          state.pigHealth = state.pigMaxHealth;
+          state.pigCooldown = 120;
+        }
+      }
+
+      function initWolfPosition() {
+        const fieldRect = fieldEl.getBoundingClientRect();
+        state.wolfX = Math.max(0, fieldRect.width - 160);
+      }
+
+      function initPigPosition() {
+        const fieldRect = fieldEl.getBoundingClientRect();
+        state.pigX = Math.max(0, fieldRect.width - 210);
+      }
+
+      function findNearbyChicken(enemyCenterX, range) {
+        let closest = null;
+        let closestDist = Infinity;
+        const fieldRect = fieldEl.getBoundingClientRect();
+        state.chickenNodes.forEach((node) => {
+          const rect = node.getBoundingClientRect();
+          const x = rect.left - fieldRect.left + rect.width / 2;
+          const dist = Math.abs(x - enemyCenterX);
+          if (dist <= range && dist < closestDist) {
+            closest = node;
+            closestDist = dist;
+          }
+        });
+        return closest;
+      }
+
+      function wolfAttack(target) {
+        wolfEl.classList.remove("attack");
+        void wolfEl.offsetWidth;
+        wolfEl.classList.add("attack");
+
+        playGrowl();
+
+        const targetX = target.offsetLeft;
+        state.wolfTargetX = Math.max(0, targetX - 40);
+        const dust = document.createElement("div");
+        dust.className = "dust";
+        dust.style.left = `${targetX + 18}px`;
+        dust.style.bottom = `${24 + Math.random() * 40}px`;
+        fieldEl.appendChild(dust);
+        dust.addEventListener("animationend", () => dust.remove());
+        const index = state.chickenNodes.indexOf(target);
+        if (index >= 0) state.chickenNodes.splice(index, 1);
+        target.remove();
+      }
+
+      function pigAttack(target) {
+        pigEl.classList.remove("attack");
+        void pigEl.offsetWidth;
+        pigEl.classList.add("attack");
+        playGrowl();
+
+        const targetX = target.offsetLeft;
+        state.pigTargetX = Math.max(0, targetX - 20);
+        const dust = document.createElement("div");
+        dust.className = "dust";
+        dust.style.left = `${targetX + 18}px`;
+        dust.style.bottom = `${24 + Math.random() * 40}px`;
+        fieldEl.appendChild(dust);
+        dust.addEventListener("animationend", () => dust.remove());
+        const index = state.chickenNodes.indexOf(target);
+        if (index >= 0) state.chickenNodes.splice(index, 1);
+        target.remove();
+      }
+
+      function playGrowl() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(120, now);
+        osc.frequency.exponentialRampToValueAtTime(70, now + 0.18);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.18, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.4);
+      }
+
+      function playCluck() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(320, now + 0.12);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      }
+
+      function playTurret() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "square";
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(140, now + 0.08);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.14);
+      }
+
+      function unlockAudio() {
+        if (audioUnlocked) return;
+        if (audioCtx.state === "suspended") {
+          audioCtx.resume();
+        }
+        audioUnlocked = true;
+      }
+
+      function spawnBullet() {
+        const turret = fieldEl.querySelector(".turret");
+        if (!turret) return;
+        const bullet = document.createElement("div");
+        bullet.className = "bullet";
+        const turretX = turret.offsetLeft + 34;
+        bullet.style.left = `${turretX}px`;
+        bullet.style.bottom = `${50 + Math.random() * 20}px`;
+        fieldEl.appendChild(bullet);
+        bullet.addEventListener("animationend", () => bullet.remove());
+      }
+
+      document.getElementById("click-btn").addEventListener("click", () => {
+        state.coins += state.clickIncome;
+        state.chickens += 1;
+        spawnChicken();
+        playCluck();
+        updateUI();
+      });
+
+      document.getElementById("upgrade-passive").addEventListener("click", () => {
+        const upgrade = upgrades.passive;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.passiveBase += upgrade.increment;
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("upgrade-per-chicken").addEventListener("click", () => {
+        const upgrade = upgrades.perChicken;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.perChicken += upgrade.increment;
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("upgrade-click").addEventListener("click", () => {
+        const upgrade = upgrades.click;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.clickIncome += upgrade.increment;
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("buy-turret").addEventListener("click", () => {
+        const upgrade = upgrades.turret;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.turrets += upgrade.increment;
+        spawnTurret();
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("buy-farm").addEventListener("click", () => {
+        const upgrade = upgrades.farm;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.farms += upgrade.increment;
+        spawnFarm();
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("buy-meth").addEventListener("click", () => {
+        const upgrade = upgrades.meth;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        state.methChickens += upgrade.increment;
+        spawnMethChicken();
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      let lastTime = performance.now();
+      let wolfTimer = 0;
+      let pigTimer = 0;
+      let turretTimer = 0;
+      let methTimer = 0;
+      function gameLoop(now) {
+        const delta = (now - lastTime) / 1000;
+        lastTime = now;
+        state.coins += getIncomePerSecond() * delta;
+        state.farmChickenBuffer += getFarmChickensPerSecond() * delta;
+        if (state.farmChickenBuffer >= 1) {
+          const newChickens = Math.floor(state.farmChickenBuffer);
+          state.farmChickenBuffer -= newChickens;
+          state.chickens += newChickens;
+        }
+        wolfTimer += delta;
+        pigTimer += delta;
+        turretTimer += delta;
+        methTimer += delta;
+        if (state.wolfCooldown > 0) {
+          state.wolfCooldown = Math.max(0, state.wolfCooldown - delta);
+        }
+        if (state.pigCooldown > 0) {
+          state.pigCooldown = Math.max(0, state.pigCooldown - delta);
+        }
+
+        if (state.wolfCooldown === 0 && wolfTimer >= 1.4 && state.chickens > 0) {
+          const wolfCenter = state.wolfX + 90;
+          const target = findNearbyChicken(wolfCenter, 120);
+          if (target) {
+            wolfTimer = 0;
+            state.chickens = Math.max(0, state.chickens - 1);
+            wolfAttack(target);
+          }
+        }
+
+        if (state.pigCooldown === 0 && pigTimer >= 1.8 && state.chickens > 0) {
+          const pigCenter = state.pigX + 85;
+          const target = findNearbyChicken(pigCenter, 120);
+          if (target) {
+            pigTimer = 0;
+            state.chickens = Math.max(0, state.chickens - 1);
+            pigAttack(target);
+          }
+        }
+
+        if (state.turrets > 0 && turretTimer >= 0.9) {
+          turretTimer = 0;
+          damageWolf(state.turrets * 2);
+          damagePig(Math.ceil(state.turrets * 1.5));
+          playTurret();
+          spawnBullet();
+        }
+
+        if (state.methChickens > 0 && methTimer >= 0.7) {
+          methTimer = 0;
+
+          const targets = [];
+          if (state.wolfCooldown === 0) {
+            targets.push({ type: "wolf", x: state.wolfX + 90 });
+          }
+          if (state.pigCooldown === 0) {
+            targets.push({ type: "pig", x: state.pigX + 85 });
+          }
+
+          let target = null;
+          if (targets.length > 0) {
+            target = targets.sort((a, b) => a.x - b.x)[0];
+          }
+
+          if (state.methChickenNodes.length < state.methChickens) {
+            spawnMethChicken(target ? target.x : undefined);
+          }
+
+          if (target) {
+            const travelTime = Math.max(0.2, (target.x + 80) / 500);
+            setTimeout(() => {
+              if (target.type === "wolf" && state.wolfCooldown === 0) {
+                damageWolf(1);
+              }
+              if (target.type === "pig" && state.pigCooldown === 0) {
+                damagePig(1);
+              }
+            }, travelTime * 1000);
+          }
+        }
+
+        const fieldRect = fieldEl.getBoundingClientRect();
+        const maxX = Math.max(0, fieldRect.width - 160);
+        const wolfSpeed = 60;
+
+        if (state.wolfCooldown === 0 && state.wolfTargetX !== null) {
+          const dir = Math.sign(state.wolfTargetX - state.wolfX);
+          state.wolfX += dir * wolfSpeed * 2 * delta;
+          wolfEl.style.setProperty("--dir", dir >= 0 ? -1 : 1);
+          wolfEl.setAttribute("data-dir", dir >= 0 ? "right" : "left");
+          if (Math.abs(state.wolfTargetX - state.wolfX) < 6) {
+            state.wolfTargetX = null;
+          }
+        } else if (state.wolfCooldown === 0) {
+          state.wolfX += state.wolfDirection * wolfSpeed * delta;
+          wolfEl.style.setProperty("--dir", state.wolfDirection >= 0 ? -1 : 1);
+          wolfEl.setAttribute("data-dir", state.wolfDirection >= 0 ? "right" : "left");
+          if (state.wolfX <= 0) {
+            state.wolfX = 0;
+            state.wolfDirection = 1;
+          }
+          if (state.wolfX >= maxX) {
+            state.wolfX = maxX;
+            state.wolfDirection = -1;
+          }
+        }
+
+        const pigMaxX = Math.max(0, fieldRect.width - 190);
+        const pigSpeed = 45;
+        if (state.pigCooldown === 0 && state.pigTargetX !== null) {
+          const dir = Math.sign(state.pigTargetX - state.pigX);
+          state.pigX += dir * pigSpeed * 2 * delta;
+          pigEl.style.setProperty("--dir", dir >= 0 ? -1 : 1);
+          pigEl.setAttribute("data-dir", dir >= 0 ? "right" : "left");
+          if (Math.abs(state.pigTargetX - state.pigX) < 6) {
+            state.pigTargetX = null;
+          }
+        } else if (state.pigCooldown === 0) {
+          state.pigX += state.pigDirection * pigSpeed * delta;
+          pigEl.style.setProperty("--dir", state.pigDirection >= 0 ? -1 : 1);
+          pigEl.setAttribute("data-dir", state.pigDirection >= 0 ? "right" : "left");
+          if (state.pigX <= 0) {
+            state.pigX = 0;
+            state.pigDirection = 1;
+          }
+          if (state.pigX >= pigMaxX) {
+            state.pigX = pigMaxX;
+            state.pigDirection = -1;
+          }
+        }
+
+        updateUI();
+        requestAnimationFrame(gameLoop);
+      }
+
+      updateUI();
+      initWolfPosition();
+      initPigPosition();
+      window.addEventListener("resize", initWolfPosition);
+      window.addEventListener("resize", initPigPosition);
+      requestAnimationFrame(gameLoop);
+    </script>
+  </body>
+</html>
