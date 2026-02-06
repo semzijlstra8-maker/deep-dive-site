@@ -151,6 +151,101 @@
         border-radius: 2px;
       }
 
+
+      .kfc {
+        position: relative;
+        width: 62px;
+        height: 48px;
+        background: #fff4f4;
+        border: 2px solid #d66b6b;
+        border-radius: 6px;
+        box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08);
+      }
+
+      .kfc::before {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        top: -12px;
+        height: 18px;
+        background: #c61f1f;
+        border: 2px solid #9f1717;
+        border-bottom: none;
+        border-radius: 6px 6px 0 0;
+      }
+
+      .kfc::after {
+        content: "KFC";
+        position: absolute;
+        left: 10px;
+        top: 6px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #c61f1f;
+      }
+
+
+
+      .pulse {
+        animation: pulse 0.4s ease;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+        100% { transform: scale(1); }
+      }
+
+      .hit-flash {
+        animation: hit-flash 0.25s ease;
+      }
+
+      @keyframes hit-flash {
+        0% { filter: brightness(1); }
+        50% { filter: brightness(1.5); }
+        100% { filter: brightness(1); }
+      }
+
+      .coin-burst {
+        position: absolute;
+        font-size: 14px;
+        color: #d96c06;
+        font-weight: 700;
+        pointer-events: none;
+        animation: coin-pop 0.6s ease-out forwards;
+      }
+
+      .spend-float {
+        position: absolute;
+        font-size: 14px;
+        color: #ff6b6b;
+        font-weight: 700;
+        pointer-events: none;
+        animation: coin-pop 0.6s ease-out forwards;
+      }
+
+      @keyframes coin-pop {
+        0% { transform: translateY(0) scale(0.9); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: translateY(-16px) scale(1.1); opacity: 0; }
+      }
+
+      .smoke {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(200,200,200,0.9), rgba(200,200,200,0));
+        animation: smoke 1.2s ease-out forwards;
+        pointer-events: none;
+      }
+
+      @keyframes smoke {
+        0% { transform: translateY(0) scale(0.7); opacity: 0.9; }
+        100% { transform: translateY(-24px) scale(1.6); opacity: 0; }
+      }
+
       .clicker {
         display: grid;
         gap: 14px;
@@ -312,6 +407,38 @@
         border-radius: 50%;
         right: 6px;
         top: 9px;
+      }
+
+      .chicken.prestige-1 .body::before {
+        box-shadow: 0 0 0 2px #f2c94c;
+      }
+
+      .chicken.prestige-1 .body::after {
+        box-shadow: 0 0 0 2px #111;
+      }
+
+      .chicken.prestige-1::before {
+        content: "";
+        position: absolute;
+        width: 26px;
+        height: 6px;
+        background: #f2c94c;
+        border-radius: 999px;
+        left: 10px;
+        bottom: 4px;
+        box-shadow: 0 0 6px rgba(242, 201, 76, 0.7);
+      }
+
+      .chicken.prestige-1::after {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 10px;
+        background: #111;
+        border-radius: 6px;
+        left: 12px;
+        top: 10px;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
       }
 
       .chicken .beak {
@@ -741,6 +868,180 @@
         }
       }
 
+      .rat {
+        position: absolute;
+        bottom: 18px;
+        left: 40%;
+        width: 240px;
+        height: 140px;
+        display: none;
+        z-index: 2;
+      }
+      .rat.active {
+        display: block;
+      }
+      .rat .rat-body {
+        position: relative;
+        width: 220px;
+        height: 120px;
+        margin: 0 auto;
+        border-radius: 70px;
+        background: linear-gradient(180deg, #5b4d44, #3a302b);
+        box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.25), 0 10px 18px rgba(0, 0, 0, 0.35);
+      }
+      .rat .rat-head {
+        position: absolute;
+        right: -10px;
+        top: 26px;
+        width: 90px;
+        height: 70px;
+        border-radius: 50px;
+        background: linear-gradient(180deg, #6a5a52, #3e352f);
+      }
+      .rat .rat-eye {
+        position: absolute;
+        right: 18px;
+        top: 20px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #ff2d2d;
+        box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+      }
+      .rat .rat-eye.left {
+        right: 38px;
+      }
+      .rat .rat-eye.right {
+        right: 18px;
+      }
+      .rat[data-dir="left"] {
+        transform: scaleX(-1);
+      }
+      .rat[data-dir="left"] .ui {
+        transform: scaleX(-1);
+      }
+      .rat .rat-ear {
+        position: absolute;
+        top: 6px;
+        right: 50px;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #806b61;
+      }
+      .rat .rat-tail {
+        position: absolute;
+        left: -60px;
+        top: 60px;
+        width: 80px;
+        height: 16px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #8d6a5a, #5d4037);
+        transform: rotate(-12deg);
+      }
+      .rat .ui {
+        position: absolute;
+        left: 16px;
+        top: -22px;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+      }
+      .rat .health {
+        margin-top: 4px;
+        width: 120px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .rat .health span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff2d2d, #ff8a00);
+      }
+
+      .rat-laser {
+        position: absolute;
+        height: 4px;
+        background: linear-gradient(90deg, rgba(255, 60, 60, 0.2), #ff2d2d, #ff7a7a);
+        box-shadow: 0 0 10px rgba(255, 40, 40, 0.9);
+        border-radius: 999px;
+        transform-origin: left center;
+        animation: rat-laser 0.18s ease-out forwards;
+        z-index: 3;
+      }
+      @keyframes rat-laser {
+        0% {
+          transform: scaleX(0.1);
+          opacity: 0.2;
+        }
+        100% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      }
+
+      .rat-trigger {
+        margin-top: 10px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 2px solid #b52b2b;
+        background: #3a0d0d;
+        color: #ffd6d6;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .rat-trigger:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .boss-warning {
+        position: fixed;
+        top: 18%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: clamp(36px, 6vw, 96px);
+        font-weight: 900;
+        color: #ff1e1e;
+        text-shadow: 0 0 12px rgba(255, 30, 30, 0.85), 0 0 24px rgba(255, 80, 80, 0.6);
+        letter-spacing: 4px;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0;
+        animation: boss-warning 1.2s ease-in-out forwards;
+      }
+      @keyframes boss-warning {
+        0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+        10% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+        70% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        100% { opacity: 0; transform: translateX(-50%) scale(1.2); }
+      }
+
+      .confetti {
+        position: fixed;
+        top: -10px;
+        width: 10px;
+        height: 14px;
+        z-index: 9999;
+        pointer-events: none;
+        animation: confetti-fall 2.4s ease-in forwards;
+      }
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-20px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(720deg);
+          opacity: 0.9;
+        }
+      }
+
       .turret {
         position: absolute;
         bottom: 30px;
@@ -759,6 +1060,25 @@
         height: 8px;
         background: #3b2a12;
         border-radius: 999px;
+      }
+
+
+      .turret .health {
+        position: absolute;
+        top: -8px;
+        left: -2px;
+        width: 48px;
+        height: 6px;
+        background: #f1d1d1;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .turret .health span {
+        display: block;
+        height: 100%;
+        background: #3b7d4a;
+        width: 100%;
       }
 
       .bullet {
@@ -823,6 +1143,193 @@
         color: white;
       }
 
+      .prestige-btn {
+        border: 3px solid #d4af37;
+        background: linear-gradient(135deg, #fff0b3, #d4af37 45%, #f2c94c 100%);
+        color: #2b2b2b;
+        font-weight: 900;
+        text-transform: uppercase;
+        box-shadow: 0 6px 0 #9f7a1f, 0 0 12px rgba(212, 175, 55, 0.6);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .prestige-btn::after {
+        content: "♦";
+        position: absolute;
+        right: 10px;
+        top: 6px;
+        color: #b9f2ff;
+        text-shadow: 0 0 6px rgba(185, 242, 255, 0.8);
+      }
+
+      .prestige-btn::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        left: -30%;
+        width: 30%;
+        height: 180%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+        transform: rotate(12deg);
+        animation: prestige-shine 2.4s linear infinite;
+      }
+
+      @keyframes prestige-shine {
+        0% { left: -40%; }
+        100% { left: 120%; }
+      }
+
+      .prestige-btn:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 #b38a2e;
+      }
+
+      .spaceship-btn {
+        margin-top: 10px;
+        padding: 12px 20px;
+        border-radius: 14px;
+        border: 2px solid #2ecc71;
+        background: linear-gradient(135deg, #0f3d2e, #1f8a4c);
+        color: #eafff1;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        box-shadow: 0 8px 18px rgba(46, 204, 113, 0.35);
+        transition: transform 0.1s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      }
+      .spaceship-btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      .spaceship-btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 5px 10px rgba(46, 204, 113, 0.25);
+      }
+
+      .rocket {
+        position: fixed;
+        right: 10%;
+        bottom: -260px;
+        width: 140px;
+        height: 260px;
+        z-index: 9999;
+        pointer-events: none;
+        animation: rocket-launch 3.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .rocket-body {
+        position: relative;
+        width: 120px;
+        height: 200px;
+        margin: 0 auto;
+        border-radius: 60px 60px 28px 28px;
+        background: linear-gradient(180deg, #f6f7fb 0%, #cfd6e6 40%, #9aa7c7 100%);
+        box-shadow: inset 0 -8px 0 rgba(0, 0, 0, 0.08), 0 14px 26px rgba(0, 0, 0, 0.35);
+      }
+      .rocket-nose {
+        position: absolute;
+        top: -55px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 0;
+        height: 0;
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+        border-bottom: 70px solid #ff4b5c;
+        filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+      }
+      .rocket-window {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #a6ffef, #1ccfc0 60%, #0c6f73 100%);
+        border: 4px solid #1f2b38;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+      }
+      .rocket-fin {
+        position: absolute;
+        bottom: 12px;
+        width: 40px;
+        height: 60px;
+        background: linear-gradient(180deg, #ff4b5c 0%, #c72f3d 100%);
+      }
+      .rocket-fin.left {
+        left: -12px;
+        border-radius: 8px 0 20px 12px;
+        transform: skewY(12deg);
+      }
+      .rocket-fin.right {
+        right: -12px;
+        border-radius: 0 8px 12px 20px;
+        transform: skewY(-12deg);
+      }
+      .rocket-flame {
+        position: absolute;
+        bottom: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 90px;
+        background: radial-gradient(circle at 50% 20%, #fff7b0 0%, #ffd166 35%, #ff7b2a 70%, #ff3d00 100%);
+        border-radius: 50% 50% 60% 60%;
+        filter: blur(0.2px) drop-shadow(0 10px 20px rgba(255, 120, 0, 0.5));
+        animation: flame-flicker 0.2s infinite alternate;
+      }
+      @keyframes flame-flicker {
+        from {
+          transform: translateX(-50%) scaleY(0.95);
+        }
+        to {
+          transform: translateX(-50%) scaleY(1.05);
+        }
+      }
+      @keyframes rocket-launch {
+        0% {
+          transform: translateY(0) scale(0.9);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-130vh) scale(1.05);
+          opacity: 0;
+        }
+      }
+
+      .alien-chicken .body {
+        background: linear-gradient(135deg, #a8ff5e, #2bdc7b);
+        border-color: #1c8f52;
+        box-shadow: 0 0 10px rgba(80, 255, 150, 0.55);
+      }
+      .alien-chicken .body::before {
+        background: #7bffb5;
+        box-shadow: 0 0 6px rgba(80, 255, 200, 0.8);
+      }
+      .alien-chicken .body::after {
+        background: #0b3f1f;
+      }
+      .alien-chicken .beak {
+        border-left-color: #7cff4f;
+      }
+      .alien-chicken::after {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 4px;
+        background: #7bffb5;
+        border-radius: 999px;
+        left: 12px;
+        top: 2px;
+        box-shadow: 0 0 8px rgba(120, 255, 200, 0.9);
+      }
+
       @keyframes rainbow-border {
         0% {
           background-position: 0% 50%;
@@ -842,7 +1349,364 @@
         font-weight: 600;
       }
 
-      .enemy-status {
+
+
+                                                      
+
+      .casino-lounge {
+        grid-column: 1 / -1;
+        background: radial-gradient(circle at top, #2b0a3d, #120018);
+        border: 3px solid #d4af37;
+        border-radius: 18px;
+        padding: 18px;
+        color: #f8e7b3;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+      }
+
+      .casino-lounge h2 {
+        margin: 0 0 10px 0;
+        font-family: "Trebuchet MS", "Impact", sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .casino-games {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .casino-card {
+        background: linear-gradient(145deg, #2a0d3e, #1b0628);
+        border: 2px solid #d4af37;
+        border-radius: 14px;
+        padding: 12px;
+      }
+
+      .casino-card button {
+        border: 2px solid #d4af37;
+        background: #1f0a2d;
+        color: #f8e7b3;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .casino-card button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .casino-result {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #ffe9a6;
+      }
+
+      .chip {
+        display: inline-block;
+        margin-left: 6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #d4af37;
+      }
+
+
+      .casino-lounge {
+        grid-column: 1 / -1;
+        background: radial-gradient(circle at top, #3b104f, #130018);
+        border: 5px solid #d4af37;
+        border-radius: 22px;
+        padding: 26px;
+        color: #f8e7b3;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .casino-lounge h2 {
+        margin: 0 0 12px 0;
+        font-family: "Trebuchet MS", "Impact", sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 28px;
+      }
+
+      .casino-games {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      }
+
+      .casino-card {
+        background: linear-gradient(145deg, #2a0d3e, #1b0628);
+        border: 3px solid #d4af37;
+        border-radius: 18px;
+        padding: 18px;
+      }
+
+      .casino-card button {
+        border: 2px solid #d4af37;
+        background: #1f0a2d;
+        color: #f8e7b3;
+        padding: 8px 12px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .casino-card button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .casino-result {
+        margin-top: 8px;
+        font-size: 13px;
+        color: #ffe9a6;
+      }
+
+      .chip {
+        display: inline-block;
+        margin-left: 6px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #d4af37;
+      }
+
+      .slots-visual {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: 10px 0;
+        padding: 8px;
+        border: 2px solid #d4af37;
+        border-radius: 12px;
+        background: #1a0826;
+        overflow: hidden;
+      }
+
+      .slots-visual .reel {
+        height: 64px;
+        display: grid;
+        place-items: center;
+        font-size: 28px;
+        background: #2a0d3e;
+        border-radius: 10px;
+        animation: reel-spin 1.8s linear infinite;
+      }
+
+      .slots-visual .reel:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .slots-visual .reel:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes reel-spin {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0); }
+      }
+
+      .roulette-visual {
+        position: relative;
+        height: 160px;
+        margin: 12px 0;
+        display: grid;
+        place-items: center;
+      }
+
+      .roulette-visual .wheel {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: conic-gradient(#c0392b 0 25%, #1abc9c 25% 50%, #c0392b 50% 75%, #1abc9c 75% 100%);
+        border: 5px solid #d4af37;
+        animation: wheel-spin 3.2s linear infinite;
+      }
+
+      .roulette-visual .ball {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #f8e7b3;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: ball-orbit 3.2s linear infinite;
+      }
+
+      @keyframes wheel-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @keyframes ball-orbit {
+        0% { transform: translateX(-50%) rotate(0deg) translateY(-42px); }
+        100% { transform: translateX(-50%) rotate(-360deg) translateY(-42px); }
+      }
+
+      .dice-visual {
+        font-size: 40px;
+        margin: 10px 0;
+        animation: dice-bounce 1.8s ease-in-out infinite;
+      }
+
+      @keyframes dice-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+
+
+      .world-map {
+        grid-column: 1 / -1;
+        background: linear-gradient(180deg, #e9f4ff, #cfe6ff);
+        border: 3px solid #87b7e6;
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .map-panel {
+        position: relative;
+        height: 220px;
+        border-radius: 12px;
+        background: radial-gradient(circle at 20% 40%, rgba(62, 135, 196, 0.25), transparent 45%),
+          radial-gradient(circle at 70% 50%, rgba(62, 135, 196, 0.25), transparent 45%),
+          linear-gradient(180deg, #bfe3ff, #90c7f3);
+        border: 2px solid #6ea6d6;
+        overflow: hidden;
+      }
+
+      .continent {
+        position: absolute;
+        background: #8bcf88;
+        border-radius: 30% 40% 35% 45%;
+        opacity: 0.9;
+      }
+
+      .continent.a { left: 12%; top: 25%; width: 120px; height: 80px; }
+      .continent.b { left: 45%; top: 20%; width: 140px; height: 90px; }
+      .continent.c { left: 70%; top: 45%; width: 110px; height: 70px; }
+
+      .country-chip {
+        position: absolute;
+        font-size: 22px;
+        display: none;
+        align-items: center;
+        gap: 4px;
+        transform: translate(-50%, -50%);
+      }
+
+      .country-chip .flag {
+        display: inline-block;
+        margin-left: 4px;
+        padding: 2px 4px;
+        font-size: 9px;
+        font-weight: 800;
+        color: #fff;
+        background: #c61f1f;
+        border-radius: 4px;
+        border: 1px solid #8f1414;
+      }
+
+      .map-shop {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        margin-top: 10px;
+      }
+
+      .map-shop button {
+        border: 2px solid #3b7d4a;
+        background: #eef9f0;
+        color: #2b2b2b;
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .map-shop button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .map-pop {
+        animation: map-pop 0.5s ease;
+      }
+
+      @keyframes map-pop {
+        0% { transform: scale(0.6); opacity: 0.3; }
+        60% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+
+
+      .mini-menu {
+        grid-column: 1 / -1;
+        background: linear-gradient(135deg, #fff7ed, #f3e2c7);
+        border: 2px solid #e2c8a1;
+        border-radius: 18px;
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .mini-menu h3 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+      }
+
+      .mini-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+      }
+
+      .mini-tile {
+        background: #fff;
+        border: 2px solid #ead2ad;
+        border-radius: 12px;
+        padding: 12px;
+        display: grid;
+        gap: 6px;
+        align-items: center;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        cursor: pointer;
+      }
+
+      .mini-tile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 14px rgba(0,0,0,0.12);
+      }
+
+      .mini-tile .label {
+        font-weight: 700;
+      }
+
+      .mini-tile .sub {
+        font-size: 12px;
+        color: #6b6358;
+      }
+
+
+
+                                                      .top-pipe::after {
+        bottom: -14px;
+      }
+
+      .bottom-pipe::after {
+        top: -14px;
+      }
+
+            .enemy-status {
         display: grid;
         gap: 6px;
         font-size: 13px;
@@ -875,6 +1739,7 @@
           <div><strong>💰 Kippencoins</strong>: <span id="coins">0</span></div>
           <div><strong>⏱️ Inkomen/sec</strong>: <span id="income">0</span></div>
           <div><strong>🌾 Farms</strong>: <span id="farm-count">0</span></div>
+          <div><strong>👽 Alien kippen</strong>: <span id="alien-count">0</span>/10 · (zuurstof <span id="alien-oxygen">0s</span>)</div>
         </div>
       </header>
 
@@ -889,6 +1754,29 @@
         <div class="hint danger">
           Pas op: de dikke wolf valt je kippen aan! Koop turrets om hem af te schrikken.
         </div>
+        <div class="hint">
+          Prestige kost 5000 coins: reset voor stijlvolle kippen.
+        </div>
+        <button id="prestige-btn" class="prestige-btn">Prestige (5000)</button>
+        <button id="spaceship-btn" class="spaceship-btn">Koop ruimteschip (20000)</button>
+
+        <section class="mini-menu" id="mini-menu">
+          <h3>Mini-games</h3>
+          <div class="mini-menu-grid">
+            <div class="mini-tile" data-target="casino">
+              <div class="label">Casino</div>
+              <div class="sub">Slots · Roulette · Dobbel</div>
+            </div>
+            <div class="mini-tile" data-target="map">
+              <div class="label">Wereldkaart</div>
+              <div class="sub">Koop landen</div>
+            </div>
+            <div class="mini-tile" data-target="farms">
+              <div class="label">Farms</div>
+              <div class="sub">Kippen & KFC</div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section class="panel">
@@ -932,10 +1820,25 @@
               </div>
             </div>
           </div>
+          <div class="rat" id="rat">
+            <div class="rat-body">
+              <div class="rat-tail"></div>
+              <div class="rat-head">
+                <div class="rat-ear"></div>
+                <div class="rat-eye left"></div>
+                <div class="rat-eye right"></div>
+              </div>
+              <div class="ui">
+                <div class="label">Mega Rat</div>
+                <div class="health"><span id="rat-health"></span></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="enemy-status">
-          <div>🐺 Wolf cooldown: <span id="wolf-cooldown">0s</span></div>
-          <div>🐷 Varken cooldown: <span id="pig-cooldown">0s</span></div>
+          <div>🐺 Wolf cooldown (60s): <span id="wolf-cooldown">0s</span></div>
+          <div>🐷 Varken cooldown (60s): <span id="pig-cooldown">0s</span></div>
+          <button id="rat-trigger" class="rat-trigger">Trigger Rat Boss (+10000)</button>
         </div>
       </section>
 
@@ -970,13 +1873,81 @@
       <section class="panel farms">
         <div class="upgrade">
           <strong>Kippenfarm</strong>
-          <div class="hint">Elke farm geeft 10 kippen per minuut.</div>
+          <div class="hint">Elke farm geeft 10 kippen per minuut. Cap: 10 + 10 per land (nu: <span id="farm-cap">10</span>).</div>
           <button id="buy-farm">Koop (Kosten: <span id="cost-farm">120</span>)</button>
         </div>
+
+        <div class="upgrade">
+          <strong>KFC</strong>
+          <div class="hint">Elke KFC geeft 25 kippen per minuut.</div>
+          <button id="buy-kfc">Koop (Kosten: <span id="cost-kfc">450</span>)</button>
+        </div>
+
         <div class="farm-yard">
           <div class="farm-grid" id="farm-grid"></div>
         </div>
       </section>
+
+
+
+
+      
+      <section class="world-map" id="world-map">
+        <strong>Wereldkaart</strong>
+        <div class="hint">Koop landen en zet er je kip-crew neer.</div>
+        <div class="map-panel" id="map-panel">
+          <div class="continent a"></div>
+          <div class="continent b"></div>
+          <div class="continent c"></div>
+          <div class="country-chip" id="chip-nl" style="left: calc(12% + 60px); top: calc(25% + 40px);">🐔<span class="flag">KFC</span></div>
+          <div class="country-chip" id="chip-usa" style="left: calc(45% + 70px); top: calc(20% + 45px);">🐔<span class="flag">KFC</span></div>
+          <div class="country-chip" id="chip-jp" style="left: calc(70% + 55px); top: calc(45% + 35px);">🐔<span class="flag">KFC</span></div>
+        </div>
+        <div class="map-shop">
+          <button id="buy-nl">Koop Nederland (Kosten: 300)</button>
+          <button id="buy-usa">Koop USA (Kosten: 600)</button>
+          <button id="buy-jp">Koop Japan (Kosten: 800)</button>
+        </div>
+      </section>
+
+      <section class="casino-lounge" id="casino-lounge">
+        <h2>Casino</h2>
+        <div class="hint">Gebruik je kippencoins in mini-games.</div>
+        <div class="casino-games">
+          <div class="casino-card">
+            <strong>Slots</strong>
+            <div class="hint">Inzet: 20% van je coins.</div>
+            <div class="slots-visual">
+              <div class="reel">🍒</div>
+              <div class="reel">💎</div>
+              <div class="reel">🔔</div>
+            </div>
+            <button id="play-slots">Speel Slots</button>
+            <div class="casino-result" id="slots-result"></div>
+          </div>
+          <div class="casino-card">
+            <strong>Roulette</strong>
+            <div class="hint">Inzet: 20% van je coins.</div>
+            <div class="roulette-visual">
+              <div class="wheel"></div>
+              <div class="ball"></div>
+            </div>
+            <button id="play-roulette">Draai Roulette</button>
+            <div class="casino-result" id="roulette-result"></div>
+          </div>
+          <div class="casino-card">
+            <strong>Dobbel</strong>
+            <div class="hint">Inzet: 20% van je coins.</div>
+            <div class="dice-visual">🎲</div>
+            <button id="play-dice">Gooi Dobbel</button>
+            <div class="casino-result" id="dice-result"></div>
+          </div>
+        </div>
+      </section>
+
+
+      
+
     </div>
 
     <script>
@@ -984,24 +1955,48 @@
       const chickensEl = document.getElementById("chicken-count");
       const incomeEl = document.getElementById("income");
       const farmsEl = document.getElementById("farm-count");
+      const alienEl = document.getElementById("alien-count");
+      const alienOxygenEl = document.getElementById("alien-oxygen");
       const fieldEl = document.getElementById("field");
       const wolfEl = document.getElementById("wolf");
       const wolfHealthEl = document.getElementById("wolf-health");
       const pigEl = document.getElementById("pig");
       const pigHealthEl = document.getElementById("pig-health");
+      const ratEl = document.getElementById("rat");
+      const ratHealthEl = document.getElementById("rat-health");
       const wolfCooldownEl = document.getElementById("wolf-cooldown");
       const pigCooldownEl = document.getElementById("pig-cooldown");
       const farmGridEl = document.getElementById("farm-grid");
+      const casinoLoungeEl = document.getElementById("casino-lounge");
+      const slotsResultEl = document.getElementById("slots-result");
+      const rouletteResultEl = document.getElementById("roulette-result");
+      const diceResultEl = document.getElementById("dice-result");
+      const farmCapEl = document.getElementById("farm-cap");
+      const mapPanelEl = document.getElementById("map-panel");
+      const chipNl = document.getElementById("chip-nl");
+      const chipUsa = document.getElementById("chip-usa");
+      const chipJp = document.getElementById("chip-jp");
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       let audioUnlocked = false;
 
+      const PRESTIGE_COST = 5000;
+      const SPACESHIP_COST = 20000;
+      const ALIEN_CHICKEN_CAP = 10;
+      const ALIEN_COIN_PER_SEC = 10;
+      const ALIEN_OXYGEN_MAX = 60;
+
       const state = {
-        coins: 0,
+        coins: 20000,
         chickens: 0,
+        alienChickens: 0,
+        alienOxygen: 0,
+        alienArrivalActive: false,
+        spaceshipOwned: false,
         clickIncome: 1,
         passiveBase: 0,
         perChicken: 0.1,
         turrets: 0,
+        turretNodes: [],
         wolfHealth: 120,
         wolfMaxHealth: 120,
         wolfCooldown: 0,
@@ -1015,12 +2010,22 @@
         pigX: 0,
         pigDirection: 1,
         pigTargetX: null,
+        ratHealth: 1500,
+        ratMaxHealth: 1500,
+        ratActive: false,
+        ratX: 0,
+        ratDirection: 1,
+        ratTargetX: null,
         methChickens: 0,
         methChickenNodes: [],
         farms: 0,
+        kfcs: 0,
         farmChickenBuffer: 0,
+        prestige: 0,
+        countries: { nl: false, usa: false, jp: false },
       };
 
+      const TURRET_COST_CAP = 3000;
       const upgrades = {
         passive: { cost: 25, increment: 1, costMult: 1.35 },
         perChicken: { cost: 40, increment: 1, costMult: 1.4 },
@@ -1028,6 +2033,7 @@
         turret: { cost: 60, increment: 1, costMult: 1.5 },
         farm: { cost: 120, increment: 1, costMult: 1.45 },
         meth: { cost: 150, increment: 1, costMult: 1.5 },
+        kfc: { cost: 450, increment: 1, costMult: 1.55 },
       };
 
       const costEls = {
@@ -1037,25 +2043,48 @@
         turret: document.getElementById("cost-turret"),
         farm: document.getElementById("cost-farm"),
         meth: document.getElementById("cost-meth"),
+        kfc: document.getElementById("cost-kfc"),
       };
 
       function formatNumber(num) {
         return Math.floor(num).toLocaleString("nl-NL");
       }
 
+      
+
       function updateUI() {
         coinsEl.textContent = formatNumber(state.coins);
         chickensEl.textContent = formatNumber(state.chickens);
         incomeEl.textContent = formatNumber(getIncomePerSecond());
         farmsEl.textContent = formatNumber(state.farms);
+        if (alienEl) alienEl.textContent = formatNumber(Math.min(state.alienChickens, ALIEN_CHICKEN_CAP));
+        if (alienOxygenEl) {
+          const oxygen = Math.max(0, Math.ceil(state.alienOxygen));
+          alienOxygenEl.textContent = `${oxygen}s`;
+        }
         costEls.passive.textContent = formatNumber(upgrades.passive.cost);
         costEls.perChicken.textContent = formatNumber(upgrades.perChicken.cost);
         costEls.click.textContent = formatNumber(upgrades.click.cost);
         costEls.turret.textContent = formatNumber(upgrades.turret.cost);
         costEls.farm.textContent = formatNumber(upgrades.farm.cost);
         costEls.meth.textContent = formatNumber(upgrades.meth.cost);
+        costEls.kfc.textContent = formatNumber(upgrades.kfc.cost);
         updateWolfUI();
         updatePigUI();
+        updateRatUI();
+        if (casinoLoungeEl) {
+          casinoLoungeEl.style.display = "block";
+        }
+        if (farmCapEl) farmCapEl.textContent = getFarmCap();
+        if (chipNl) chipNl.style.display = state.countries.nl ? "block" : "none";
+        if (chipUsa) chipUsa.style.display = state.countries.usa ? "block" : "none";
+        if (chipJp) chipJp.style.display = state.countries.jp ? "block" : "none";
+        const spaceshipBtn = document.getElementById("spaceship-btn");
+        if (spaceshipBtn) {
+          spaceshipBtn.textContent = state.spaceshipOwned
+            ? "Ruimteschip gekocht"
+            : "Koop ruimteschip (20000)";
+        }
         updateButtons();
       }
 
@@ -1069,14 +2098,24 @@
         document.getElementById("buy-turret").disabled =
           state.coins < upgrades.turret.cost;
         document.getElementById("buy-farm").disabled =
-          state.coins < upgrades.farm.cost;
+          state.coins < upgrades.farm.cost || state.farms >= getFarmCap();
         document.getElementById("buy-meth").disabled =
           state.coins < upgrades.meth.cost;
+        document.getElementById("buy-kfc").disabled =
+          state.coins < upgrades.kfc.cost;
+        const prestigeBtn = document.getElementById("prestige-btn");
+        if (prestigeBtn) prestigeBtn.disabled = state.coins < PRESTIGE_COST;
+        const spaceshipBtn = document.getElementById("spaceship-btn");
+        if (spaceshipBtn) {
+          spaceshipBtn.disabled = state.spaceshipOwned || state.coins < SPACESHIP_COST;
+        }
+        const ratBtn = document.getElementById("rat-trigger");
+        if (ratBtn) ratBtn.disabled = state.ratActive;
       }
 
       function spawnChicken() {
         const chicken = document.createElement("div");
-        chicken.className = "chicken";
+        chicken.className = state.prestige >= 1 ? "chicken prestige-1" : "chicken";
         chicken.style.bottom = `${24 + Math.random() * 80}px`;
         chicken.style.animationDuration = `${2.6 + Math.random() * 1.8}s`;
         chicken.innerHTML = `
@@ -1094,7 +2133,7 @@
 
       function spawnMethChicken(targetX) {
         const chicken = document.createElement("div");
-        chicken.className = "chicken meth-chicken";
+        chicken.className = state.prestige >= 1 ? "chicken meth-chicken prestige-1" : "chicken meth-chicken";
         chicken.style.bottom = `${24 + Math.random() * 100}px`;
         chicken.style.animationDuration = `${1.2 + Math.random() * 0.5}s`;
         if (typeof targetX === "number") {
@@ -1119,22 +2158,80 @@
         const spacing = 20 + (state.turrets - 1) * 54;
         turret.style.left = `${Math.min(spacing, 260)}px`;
         turret.style.bottom = `${30 + (state.turrets % 2) * 12}px`;
+        turret.dataset.hp = "3";
+        turret.innerHTML = '<div class="health"><span></span></div>';
         fieldEl.appendChild(turret);
+        state.turretNodes.push(turret);
       }
 
       function getIncomePerSecond() {
-        return state.passiveBase + state.chickens * state.perChicken;
+        return (
+          state.passiveBase +
+          state.chickens * state.perChicken +
+          Math.min(state.alienChickens, ALIEN_CHICKEN_CAP) * ALIEN_COIN_PER_SEC
+        );
+      }
+
+
+      function getFarmCap() {
+        const owned = Object.values(state.countries).filter(Boolean).length;
+        return 10 + owned * 10;
       }
 
       function getFarmChickensPerSecond() {
-        return state.farms * (10 / 60);
+        return state.farms * (10 / 60) + state.kfcs * (25 / 60);
       }
+
 
       function spawnFarm() {
         const farm = document.createElement("div");
         farm.className = "farm";
         farmGridEl.appendChild(farm);
       }
+
+      function spawnKfc() {
+        const kfc = document.createElement("div");
+        kfc.className = "kfc";
+        farmGridEl.appendChild(kfc);
+      }
+
+
+
+      
+      function damageTurret() {
+        if (state.turretNodes.length === 0) return;
+        const turret = state.turretNodes.shift();
+        let hp = parseInt(turret.dataset.hp || "3", 10) - 1;
+        const bar = turret.querySelector('.health span');
+        if (bar) {
+          bar.style.width = `${Math.max(0, hp) / 3 * 100}%`;
+        }
+        if (hp <= 0) {
+          turret.remove();
+          state.turrets = Math.max(0, state.turrets - 1);
+        } else {
+          turret.dataset.hp = String(hp);
+          state.turretNodes.unshift(turret);
+        }
+
+        // Lunge at the turret position
+        const tx = turret.offsetLeft + 20;
+        if (state.wolfCooldown === 0) {
+          state.wolfTargetX = Math.max(0, tx - 40);
+          wolfEl.classList.remove("attack");
+          void wolfEl.offsetWidth;
+          wolfEl.classList.add("attack");
+          playGrowl();
+        }
+        if (state.pigCooldown === 0) {
+          state.pigTargetX = Math.max(0, tx - 20);
+          pigEl.classList.remove("attack");
+          void pigEl.offsetWidth;
+          pigEl.classList.add("attack");
+          playGrowl();
+        }
+      }
+
 
       function updateWolfUI() {
         const ratio = Math.max(state.wolfHealth, 0) / state.wolfMaxHealth;
@@ -1154,26 +2251,98 @@
           state.pigCooldown > 0 ? `${Math.ceil(state.pigCooldown)}s` : "0s";
       }
 
+      function updateRatUI() {
+        if (!ratEl || !ratHealthEl) return;
+        ratEl.classList.toggle("active", state.ratActive);
+        const ratio = Math.max(state.ratHealth, 0) / state.ratMaxHealth;
+        ratHealthEl.style.width = `${ratio * 100}%`;
+        ratEl.style.left = `${state.ratX}px`;
+        ratEl.setAttribute("data-dir", state.ratDirection >= 0 ? "right" : "left");
+      }
+
       function damageWolf(amount) {
         if (state.wolfCooldown > 0) return;
         state.wolfHealth -= amount;
+        hitFlash(wolfEl);
         if (state.wolfHealth <= 0) {
           state.coins += 30;
           state.wolfMaxHealth = Math.floor(state.wolfMaxHealth * 1.25 + 20);
           state.wolfHealth = state.wolfMaxHealth;
-          state.wolfCooldown = 120;
+          state.wolfCooldown = 60;
         }
       }
 
       function damagePig(amount) {
         if (state.pigCooldown > 0) return;
         state.pigHealth -= amount;
+        hitFlash(pigEl);
         if (state.pigHealth <= 0) {
           state.coins += 40;
           state.pigMaxHealth = Math.floor(state.pigMaxHealth * 1.3 + 30);
           state.pigHealth = state.pigMaxHealth;
-          state.pigCooldown = 120;
+          state.pigCooldown = 60;
         }
+      }
+
+      function damageRat(amount) {
+        if (!state.ratActive) return;
+        state.ratHealth -= amount;
+        hitFlash(ratEl);
+        if (state.ratHealth <= 0) {
+          state.ratActive = false;
+          state.ratHealth = state.ratMaxHealth;
+        }
+      }
+
+      function initRatPosition() {
+        const fieldRect = fieldEl.getBoundingClientRect();
+        state.ratX = Math.max(0, fieldRect.width * 0.45);
+      }
+
+      function fireRatLaser(target) {
+        const fieldRect = fieldEl.getBoundingClientRect();
+        const tRect = target.getBoundingClientRect();
+        const tx = tRect.left - fieldRect.left + tRect.width / 2;
+        const ty = tRect.top - fieldRect.top + tRect.height / 2;
+        const eyes = ratEl ? Array.from(ratEl.querySelectorAll(".rat-eye")) : [];
+        const sources = eyes.length
+          ? eyes.map((eye) => eye.getBoundingClientRect())
+          : [null];
+        sources.forEach((eyeRect) => {
+          const ratX = eyeRect
+            ? eyeRect.left - fieldRect.left + eyeRect.width / 2
+            : state.ratX + 170;
+          const ratY = eyeRect
+            ? eyeRect.top - fieldRect.top + eyeRect.height / 2
+            : fieldRect.height - 70;
+          const dx = tx - ratX;
+          const dy = ty - ratY;
+          const dist = Math.max(30, Math.hypot(dx, dy));
+          const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+          const laser = document.createElement("div");
+          laser.className = "rat-laser";
+          laser.style.left = `${ratX}px`;
+          laser.style.top = `${ratY}px`;
+          laser.style.width = `${dist}px`;
+          laser.style.transform = `rotate(${angle}deg)`;
+          fieldEl.appendChild(laser);
+          setTimeout(() => laser.remove(), 200);
+        });
+      }
+
+      function ratAttack(target) {
+        fireRatLaser(target);
+        const targetX = target.offsetLeft;
+        state.ratTargetX = Math.max(0, targetX - 120);
+        const dust = document.createElement("div");
+        dust.className = "dust";
+        dust.style.left = `${targetX + 18}px`;
+        dust.style.bottom = `${24 + Math.random() * 40}px`;
+        fieldEl.appendChild(dust);
+        dust.addEventListener("animationend", () => dust.remove());
+        const index = state.chickenNodes.indexOf(target);
+        if (index >= 0) state.chickenNodes.splice(index, 1);
+        target.remove();
       }
 
       function initWolfPosition() {
@@ -1309,6 +2478,201 @@
         bullet.addEventListener("animationend", () => bullet.remove());
       }
 
+
+      function pulseEl(el) {
+        el.classList.remove("pulse");
+        void el.offsetWidth;
+        el.classList.add("pulse");
+      }
+
+      function spawnCoinBurst(el) {
+        const rect = el.getBoundingClientRect();
+        const burst = document.createElement("div");
+        burst.className = "coin-burst";
+        burst.textContent = "+$";
+        burst.style.left = `${rect.left + rect.width / 2 - 6}px`;
+        burst.style.top = `${rect.top - 6}px`;
+        document.body.appendChild(burst);
+        burst.addEventListener("animationend", () => burst.remove());
+      }
+
+      
+
+      function showSpend(el, amount) {
+        const rect = el.getBoundingClientRect();
+        const spend = document.createElement("div");
+        spend.className = "spend-float";
+        spend.textContent = `- ${amount}`;
+        spend.style.left = `${rect.left + rect.width / 2 - 10}px`;
+        spend.style.top = `${rect.top - 6}px`;
+        document.body.appendChild(spend);
+        spend.addEventListener("animationend", () => spend.remove());
+      }
+
+      function launchRocket() {
+        const rocket = document.createElement("div");
+        rocket.className = "rocket";
+        rocket.innerHTML = `
+          <div class="rocket-body">
+            <div class="rocket-nose"></div>
+            <div class="rocket-window"></div>
+            <div class="rocket-fin left"></div>
+            <div class="rocket-fin right"></div>
+            <div class="rocket-flame"></div>
+          </div>
+        `;
+        document.body.appendChild(rocket);
+        rocket.addEventListener("animationend", () => rocket.remove());
+      }
+
+      function spawnAlienRunner() {
+        const chicken = document.createElement("div");
+        chicken.className = "chicken alien-chicken";
+        chicken.style.bottom = `${24 + Math.random() * 80}px`;
+        chicken.style.animationDuration = `${2.4 + Math.random() * 1.2}s`;
+        chicken.innerHTML = `
+          <div class="body"></div>
+          <div class="beak"></div>
+        `;
+        chicken.addEventListener("animationend", () => {
+          chicken.remove();
+          if (state.alienChickens < ALIEN_CHICKEN_CAP) {
+            state.alienChickens += 1;
+          }
+          updateUI();
+        });
+        fieldEl.appendChild(chicken);
+      }
+
+      function startAlienArrival() {
+        if (state.alienArrivalActive) return;
+        state.alienArrivalActive = true;
+        state.alienOxygen = ALIEN_OXYGEN_MAX;
+        let spawned = 0;
+        const tick = () => {
+          if (state.alienOxygen === 0) {
+            state.alienArrivalActive = false;
+            return;
+          }
+          if (spawned >= ALIEN_CHICKEN_CAP) {
+            state.alienArrivalActive = false;
+            return;
+          }
+          spawnAlienRunner();
+          spawned += 1;
+          setTimeout(tick, 220);
+        };
+        tick();
+      }
+
+      function performPrestige() {
+        if (state.coins < PRESTIGE_COST) return;
+        spawnConfettiBurst(100);
+        playAirhorn();
+        state.coins = 0;
+        state.chickens = 0;
+        state.farms = 0;
+        state.kfcs = 0;
+        state.farmChickenBuffer = 0;
+        state.prestige += 1;
+
+        state.chickenNodes.forEach((node) => node.remove());
+        state.methChickenNodes.forEach((node) => node.remove());
+        state.chickenNodes = [];
+        state.methChickenNodes = [];
+
+        if (farmGridEl) farmGridEl.innerHTML = "";
+        updateUI();
+      }
+function playDing() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(740, now);
+        osc.frequency.exponentialRampToValueAtTime(520, now + 0.18);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.3);
+      }
+
+
+
+      function playCash() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(220, now + 0.18);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.18, now + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+
+      function playAirhorn() {
+        unlockAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(440, now + 0.12);
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.35);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.35, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.65);
+      }
+      function hitFlash(el) {
+        el.classList.remove("hit-flash");
+        void el.offsetWidth;
+        el.classList.add("hit-flash");
+      }
+
+      function spawnSmoke(x, y) {
+        const smoke = document.createElement("div");
+        smoke.className = "smoke";
+        smoke.style.left = `${x}px`;
+        smoke.style.bottom = `${y}px`;
+        fieldEl.appendChild(smoke);
+        smoke.addEventListener("animationend", () => smoke.remove());
+      }
+
+      function spawnConfettiBurst(count = 80) {
+        const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#118ab2", "#ef476f"];
+        for (let i = 0; i < count; i += 1) {
+          const piece = document.createElement("div");
+          piece.className = "confetti";
+          piece.style.left = `${Math.random() * 100}vw`;
+          piece.style.background = colors[i % colors.length];
+          piece.style.animationDelay = `${Math.random() * 0.3}s`;
+          piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+          piece.style.width = `${6 + Math.random() * 8}px`;
+          piece.style.height = `${8 + Math.random() * 10}px`;
+          document.body.appendChild(piece);
+          piece.addEventListener("animationend", () => piece.remove());
+        }
+      }
+
+      function showBossWarning() {
+        const warning = document.createElement("div");
+        warning.className = "boss-warning";
+        warning.textContent = "BOSS FIGHT!";
+        document.body.appendChild(warning);
+        warning.addEventListener("animationend", () => warning.remove());
+      }
+
       document.getElementById("click-btn").addEventListener("click", () => {
         state.coins += state.clickIncome;
         state.chickens += 1;
@@ -1321,6 +2685,9 @@
         const upgrade = upgrades.passive;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("upgrade-passive"));
+        pulseEl(document.getElementById("upgrade-passive"));
         state.passiveBase += upgrade.increment;
         upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
         updateUI();
@@ -1330,6 +2697,9 @@
         const upgrade = upgrades.perChicken;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("upgrade-per-chicken"));
+        pulseEl(document.getElementById("upgrade-per-chicken"));
         state.perChicken += upgrade.increment;
         upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
         updateUI();
@@ -1339,6 +2709,9 @@
         const upgrade = upgrades.click;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("upgrade-click"));
+        pulseEl(document.getElementById("upgrade-click"));
         state.clickIncome += upgrade.increment;
         upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
         updateUI();
@@ -1348,9 +2721,15 @@
         const upgrade = upgrades.turret;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("buy-turret"));
+        pulseEl(document.getElementById("buy-turret"));
         state.turrets += upgrade.increment;
         spawnTurret();
-        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        upgrade.cost = Math.min(
+          TURRET_COST_CAP,
+          Math.ceil(upgrade.cost * upgrade.costMult)
+        );
         updateUI();
       });
 
@@ -1358,8 +2737,24 @@
         const upgrade = upgrades.farm;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("buy-farm"));
+        pulseEl(document.getElementById("buy-farm"));
         state.farms += upgrade.increment;
         spawnFarm();
+        upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
+        updateUI();
+      });
+
+      document.getElementById("buy-kfc").addEventListener("click", () => {
+        const upgrade = upgrades.kfc;
+        if (state.coins < upgrade.cost) return;
+        state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("buy-kfc"));
+        pulseEl(document.getElementById("buy-kfc"));
+        state.kfcs += upgrade.increment;
+        spawnKfc();
         upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
         updateUI();
       });
@@ -1368,21 +2763,177 @@
         const upgrade = upgrades.meth;
         if (state.coins < upgrade.cost) return;
         state.coins -= upgrade.cost;
+        playDing();
+        spawnCoinBurst(document.getElementById("buy-meth"));
+        pulseEl(document.getElementById("buy-meth"));
         state.methChickens += upgrade.increment;
         spawnMethChicken();
         upgrade.cost = Math.ceil(upgrade.cost * upgrade.costMult);
         updateUI();
       });
 
-      let lastTime = performance.now();
+      document.getElementById("rat-trigger").addEventListener("click", () => {
+        if (state.ratActive) return;
+        state.coins += 10000;
+        state.ratActive = true;
+        state.ratHealth = state.ratMaxHealth;
+        initRatPosition();
+        showBossWarning();
+        playDing();
+        updateUI();
+      });
+
+      document.getElementById("prestige-btn").addEventListener("click", () => {
+        if (state.coins < PRESTIGE_COST) return;
+        showSpend(document.getElementById("prestige-btn"), PRESTIGE_COST);
+        playDing();
+        performPrestige();
+      });
+
+      document.getElementById("spaceship-btn").addEventListener("click", () => {
+        if (state.spaceshipOwned || state.coins < SPACESHIP_COST) return;
+        state.coins -= SPACESHIP_COST;
+        state.spaceshipOwned = true;
+        state.alienChickens = 0;
+        showSpend(document.getElementById("spaceship-btn"), SPACESHIP_COST);
+        playDing();
+        launchRocket();
+        startAlienArrival();
+        updateUI();
+      });
+
+
+
+      function canSpend(cost) {
+        return state.coins >= cost;
+      }
+
+      function getCasinoCost() {
+        return Math.floor(state.coins * 0.2);
+      }
+
+      document.getElementById("play-slots")?.addEventListener("click", () => {
+        const cost = getCasinoCost();
+        if (!canSpend(cost) || cost <= 0) return;
+        state.coins -= cost;
+        showSpend(document.getElementById("play-dice"), cost);
+        showSpend(document.getElementById("play-roulette"), cost);
+        showSpend(document.getElementById("play-slots"), cost);
+        const roll = Math.random();
+        let win = 0;
+        if (roll > 0.92) win = 80;
+        else if (roll > 0.72) win = 40;
+        state.coins += win;
+        playCash();
+        slotsResultEl.textContent = win ? `Je wint ${win} coins!` : "Geen winst deze keer.";
+        updateUI();
+      });
+
+      document.getElementById("play-roulette")?.addEventListener("click", () => {
+        const cost = getCasinoCost();
+        if (!canSpend(cost) || cost <= 0) return;
+        state.coins -= cost;
+        showSpend(document.getElementById("play-slots"), cost);
+        const roll = Math.random();
+        let win = 0;
+        if (roll > 0.95) win = 120;
+        else if (roll > 0.75) win = 60;
+        state.coins += win;
+        playCash();
+        rouletteResultEl.textContent = win ? `Je wint ${win} coins!` : "Verloren, draai opnieuw.";
+        updateUI();
+      });
+
+      document.getElementById("play-dice")?.addEventListener("click", () => {
+        const cost = getCasinoCost();
+        if (!canSpend(cost) || cost <= 0) return;
+        state.coins -= cost;
+        showSpend(document.getElementById("play-slots"), cost);
+        const roll = Math.ceil(Math.random() * 6);
+        let win = 0;
+        if (roll >= 6) win = 50;
+        else if (roll >= 4) win = 20;
+        state.coins += win;
+        playCash();
+        diceResultEl.textContent = win ? `Je rolt ${roll} en wint ${win} coins!` : `Je rolt ${roll}. Geen winst.`;
+        updateUI();
+      });
+
+
+
+      document.getElementById("buy-nl")?.addEventListener("click", () => {
+        const cost = 300;
+        if (state.coins < cost || state.countries.nl) return;
+        state.coins -= cost;
+        state.countries.nl = true;
+        updateUI();
+        if (chipNl) {
+          chipNl.classList.remove("map-pop");
+          void chipNl.offsetWidth;
+          chipNl.classList.add("map-pop");
+        }
+      });
+
+      document.getElementById("buy-usa")?.addEventListener("click", () => {
+        const cost = 600;
+        if (state.coins < cost || state.countries.usa) return;
+        state.coins -= cost;
+        state.countries.usa = true;
+        updateUI();
+        if (chipUsa) {
+          chipUsa.classList.remove("map-pop");
+          void chipUsa.offsetWidth;
+          chipUsa.classList.add("map-pop");
+        }
+      });
+
+      document.getElementById("buy-jp")?.addEventListener("click", () => {
+        const cost = 800;
+        if (state.coins < cost || state.countries.jp) return;
+        state.coins -= cost;
+        state.countries.jp = true;
+        updateUI();
+        if (chipJp) {
+          chipJp.classList.remove("map-pop");
+          void chipJp.offsetWidth;
+          chipJp.classList.add("map-pop");
+        }
+      });
+
+      document.querySelectorAll(".mini-tile").forEach((tile) => {
+        tile.addEventListener("click", () => {
+          const target = tile.dataset.target;
+          const map = {
+            casino: document.getElementById("casino-lounge"),
+            map: document.getElementById("world-map"),
+            farms: document.querySelector(".panel.farms"),
+          };
+          const el = map[target];
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+
+
+            let lastTime = performance.now();
       let wolfTimer = 0;
       let pigTimer = 0;
+      let ratTimer = 0;
       let turretTimer = 0;
+      let turretDamageTimer = 0;
       let methTimer = 0;
+      let smokeTimer = 0;
       function gameLoop(now) {
         const delta = (now - lastTime) / 1000;
         lastTime = now;
         state.coins += getIncomePerSecond() * delta;
+        if (state.alienOxygen > 0) {
+          state.alienOxygen = Math.max(0, state.alienOxygen - delta);
+          if (state.alienOxygen === 0) {
+            state.alienChickens = 0;
+            state.alienArrivalActive = false;
+          }
+        }
         state.farmChickenBuffer += getFarmChickensPerSecond() * delta;
         if (state.farmChickenBuffer >= 1) {
           const newChickens = Math.floor(state.farmChickenBuffer);
@@ -1391,8 +2942,11 @@
         }
         wolfTimer += delta;
         pigTimer += delta;
+        ratTimer += delta;
         turretTimer += delta;
+        turretDamageTimer += delta;
         methTimer += delta;
+        smokeTimer += delta;
         if (state.wolfCooldown > 0) {
           state.wolfCooldown = Math.max(0, state.wolfCooldown - delta);
         }
@@ -1420,12 +2974,42 @@
           }
         }
 
-        if (state.turrets > 0 && turretTimer >= 0.9) {
+        if (state.ratActive && ratTimer >= 1.2 && state.chickens > 0) {
+          const ratCenter = state.ratX + 120;
+          const target = findNearbyChicken(ratCenter, 160);
+          if (target) {
+            ratTimer = 0;
+            state.chickens = Math.max(0, state.chickens - 1);
+            ratAttack(target);
+          }
+        }
+
+        
+        const anyEnemyActive = state.wolfCooldown == 0 || state.pigCooldown == 0 || state.ratActive;
+
+        if (state.turrets > 0 && turretDamageTimer >= 2.2 && anyEnemyActive) {
+          turretDamageTimer = 0;
+          damageTurret();
+        }
+
+if (state.turrets > 0 && turretTimer >= 0.9 && anyEnemyActive) {
           turretTimer = 0;
           damageWolf(state.turrets * 2);
           damagePig(Math.ceil(state.turrets * 1.5));
+          damageRat(Math.ceil(state.turrets * 1.2));
           playTurret();
           spawnBullet();
+        }
+
+        
+        if (state.kfcs > 0 && smokeTimer >= 1.6) {
+          smokeTimer = 0;
+          const kfcs = Array.from(farmGridEl.querySelectorAll(".kfc"));
+          if (kfcs.length > 0) {
+            const kfc = kfcs[Math.floor(Math.random() * kfcs.length)];
+            const x = kfc.offsetLeft + 20;
+            spawnSmoke(x, 28);
+          }
         }
 
         if (state.methChickens > 0 && methTimer >= 0.7) {
@@ -1437,6 +3021,9 @@
           }
           if (state.pigCooldown === 0) {
             targets.push({ type: "pig", x: state.pigX + 85 });
+          }
+          if (state.ratActive && ratEl) {
+            targets.push({ type: "rat", x: ratEl.offsetLeft + 120 });
           }
 
           let target = null;
@@ -1456,6 +3043,9 @@
               }
               if (target.type === "pig" && state.pigCooldown === 0) {
                 damagePig(1);
+              }
+              if (target.type === "rat" && state.ratActive) {
+                damageRat(1);
               }
             }, travelTime * 1000);
           }
@@ -1511,6 +3101,27 @@
           }
         }
 
+        const ratMaxX = Math.max(0, fieldRect.width - 240);
+        const ratSpeed = 35;
+        if (state.ratActive && state.ratTargetX !== null) {
+          const dir = Math.sign(state.ratTargetX - state.ratX);
+          if (dir !== 0) state.ratDirection = dir;
+          state.ratX += dir * ratSpeed * 2 * delta;
+          if (Math.abs(state.ratTargetX - state.ratX) < 6) {
+            state.ratTargetX = null;
+          }
+        } else if (state.ratActive) {
+          state.ratX += state.ratDirection * ratSpeed * delta;
+          if (state.ratX <= 0) {
+            state.ratX = 0;
+            state.ratDirection = 1;
+          }
+          if (state.ratX >= ratMaxX) {
+            state.ratX = ratMaxX;
+            state.ratDirection = -1;
+          }
+        }
+
         updateUI();
         requestAnimationFrame(gameLoop);
       }
@@ -1518,8 +3129,10 @@
       updateUI();
       initWolfPosition();
       initPigPosition();
+      initRatPosition();
       window.addEventListener("resize", initWolfPosition);
       window.addEventListener("resize", initPigPosition);
+      window.addEventListener("resize", initRatPosition);
       requestAnimationFrame(gameLoop);
     </script>
   </body>
